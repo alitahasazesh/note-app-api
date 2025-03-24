@@ -56,6 +56,9 @@ app.listen(8000, () => {
   console.log("Server created");
 });
 
-mongoose
-  .connect(process.env.MONGO_URL)
-  .then(console.log("Connected to Db"));
+mongoose.connect(process.env.MONGO_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 5000, // Timeout in 5 seconds
+}).then(() => console.log('MongoDB connected'))
+  .catch(err => console.log('MongoDB connection error:', err));
