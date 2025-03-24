@@ -27,11 +27,20 @@ const searchNotesRouter = require("./api/search-notes.js");
 dotenv.config();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:5173", "https://your-frontend.vercel.app"], // Allow local dev & deployed frontend
+  credentials: true
+}));
+
 
 app.get("/", (req, res) => {
   res.send({ data: "Hello" });
 });
+
+app.get("/ping", (req, res) => {
+  res.send("Backend is running!");
+});
+
 
 app.use("/login", loginRoute);
 app.use("/create-account", createAccountRoute);
